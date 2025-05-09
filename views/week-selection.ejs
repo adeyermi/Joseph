@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Select Week</title>
+  
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="/img/bcc.png" alt="Logo" />
+    </div>
+    <div class="header-title">Joseph Group of Believers</div>
+  </header>
+
+  <div class="content">
+    <a href="javascript:history.back()" class="back-button">Previous</a>
+    <h1 class="main-title">
+      Hello <%= gender === "male" ? "Brother" : "Sister" %> <%= name %>
+    </h1>
+    <p class="description">
+      You selected: <strong><%= category %></strong><br>
+      Now choose the week you want to revise
+    </p>
+
+    <div class="form-card">
+      <form action="/week-selection" method="POST">
+        <input type="hidden" name="name" value="<%= name %>">
+        <input type="hidden" name="gender" value="<%= gender %>">
+        <input type="hidden" name="category" value="<%= category %>">
+
+        <div class="form-group">
+          <label class="form-label" for="week">Select Week</label>
+          <select name="week" id="week" class="form-input" required>
+            <option value=""> Choose a Week </option>
+            <option value="1">Week 1</option>
+            <option value="2">Week 2</option>
+            <option value="3">Week 3</option>
+            <option value="4">Week 4</option>
+          </select>
+        </div>
+
+        <button type="submit" class="continue-btn">Start Revision</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    Made with <span class="heart">❤</span> for the Joseph Group of Believers Community Church © 2025
+</footer>
+</body>
+</html>

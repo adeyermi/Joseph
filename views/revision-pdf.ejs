@@ -1,0 +1,68 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Revision - Week <%= week %></title>
+  
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="/img/bcc.png" alt="Logo">
+    </div>
+    <div class="header-title">Joseph Group of Believers</div>
+  </header>
+
+  <div class="content">
+
+    <div class="content">
+      <a href="javascript:history.back()" class="back-button">Back</a>
+    <h1 class="main-title">Week <%= week %> Revision</h1>
+    <p class="subtitle">
+      Dear <%= gender === "male" ? "Brother" : "Sister" %> <%= name %>, please go through the material below carefully. You can also download by clicking the download button below.
+    </p>
+
+    <div class="pdf-viewer" id="pdf-container"></div>
+
+
+    <!-- Download link -->
+    <a href="<%= pdfPath %>" download class="pdf-download">Download PDF</a>
+  </div>
+
+  <footer>
+    Made with <span class="heart">❤</span> for the Joseph Group of Believers Community Church © 2025
+</footer>
+
+    <!-- PDF.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.14.305/pdf.min.js"></script>
+    <script>
+      const url = "<%= pdfPath %>";
+      const container = document.getElementById("pdf-container");
+  
+      pdfjsLib.getDocument(url).promise.then(pdf => {
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          pdf.getPage(pageNumber).then(page => {
+            const scale = window.innerWidth < 768 ? 1.2 : 1.5;
+            const viewport = page.getViewport({ scale: scale });
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+  
+            canvas.height = viewport.height;
+            canvas.width = viewport.width;
+            container.appendChild(canvas);
+  
+            page.render({
+              canvasContext: context,
+              viewport: viewport
+            });
+          });
+        }
+      }).catch(err => {
+        container.innerHTML = "<p style='color: red;'>Failed to load PDF. Please try again later.</p>";
+        console.error("PDF.js error:", err);
+      });
+    </script>
+  </body>
+  </html>

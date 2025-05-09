@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Joseph Group of Believers</title>
+   
+</head>
+<body>
+    <header>
+      <div class="logo">
+        <img src="/img/bcc.png" alt="Logo" />
+      </div>
+
+        <div class="header-title">Joseph Group of Believers Community Church</div>
+    </header>
+
+    <div class="content">
+       
+        <h1 class="main-title">Joseph Group of Believers </h1>
+        <p class="description">Download PDF document to help you study and learn.</p>
+
+        <div class="welcome-card">
+            <div class="user-icon">
+                <span style="font-size: 24px; color: #e67e22;">👤</span>
+            </div>
+            <h2 class="welcome-title">Welcome</h2>
+            <p class="welcome-subtitle">Please enter your information to continue</p>
+            
+            <form action="/start" method="POST">
+                <div class="form-group">
+                    <label class="form-label" for="name">Your Name</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="gender">Your Gender</label>
+                    <select id="gender" name="gender" class="form-input" required>
+                        <option value="">Select Gender </option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="pair">Select Your Pair/Trio</label>
+                    <select id="pair" name="pair" class="form-input" required>
+                        <option value=""> Select Pair or Trio </option>
+                        <option value="Pair A">Pair A</option>
+                        <option value="Pair B">Pair B</option>
+                        <option value="Pair C">Pair C</option>
+                        <option value="Pair D">Pair D</option>
+                        <option value="Pair E">Pair E</option>
+                        <option value="Trio F">Trio F</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="continue-btn">Continue</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        Made with <span class="heart">❤</span> for the Joseph Group of Believers Community Church © 2025
+    </footer>
+</body>
+</html>

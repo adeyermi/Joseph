@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/css/style.css" />
+  <title>Select Category</title>
+
+  
+
+
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="/img/bcc.png" alt="Logo" />
+    </div>
+    <div class="header-title">Joseph Group of Believers Community Church</div>
+  </header>
+
+  <div class="content">
+    <a href="javascript:history.back()" class="back-button"> Back</a>
+    <h1 class="main-title">
+
+   
+      Welcome <%= gender === "male" ? "Brother" : "Sister" %> <%= name %> of <%= pair %>
+    </h1>
+    <p class="description">Please select a revision category to begin</p>
+
+    <div class="welcome-card">
+      <form action="/select-category" method="POST">
+        <input type="hidden" name="name" value="<%= name %>">
+        <input type="hidden" name="gender" value="<%= gender %>">
+        <input type="hidden" name="pair" value="<%= pair %>">
+
+        <div class="form-group">
+          <label class="form-label" for="category">Select Category</label>
+          <select name="category" id="category" class="form-input" required>
+            <option value=""> Choose a Category </option>
+            <option value="Exercise">Exercise</option>
+            <option value="Memory Verse">Memory Verse</option>
+            <option value="Questions & Answer">Questions & Answer</option>
+          </select>
+        </div>
+
+        <button type="submit" class="continue-btn">Continue</button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    Made with <span class="heart">❤</span> for the Joseph Group of Believers Community Church © 2025
+</footer>
+</body>
+</html>
