@@ -59,33 +59,51 @@ app.post("/select-category", (req, res) => {
 
   if (category === "Questions & Answer") {
     // Proceed to week selection
-    res.render("week-selection", { name, gender, category, pair });
-  } else {
-    // Directly serve Exercise or Memory Verse PDF
-    const fileName = category === "Exercise" ? "Exercise.pdf" : "MemoryVerse.pdf";
-    const pdfPath = `/uploads/${fileName}`; // Updated for correct URL path
+    return res.render("week-selection", { name, gender, category, pair });
+  }
 
-    if (fs.existsSync(path.join(__dirname, "uploads", fileName))) {
-      res.render("revision-pdf", {
-        name,
-        gender,
-        category,
-        week: null,
-        pair,
-        pdfPath
-      });
-    } else {
-      res.status(404).send(`${category} PDF not found.`);
-    }
+  // Directly serve Exercise, MemoryVerse, or Scriptural PDF
+  let fileName;
+
+  switch (category) {
+    case "Exercise":
+      fileName = "Exercise.pdf";
+      break;
+    case "MemoryVerse":
+      fileName = "MemoryVerse.pdf";
+      break;
+    case "Scriptural":
+      fileName = "Scriptural.pdf";
+      break;
+    default:
+      return res.status(400).send("Invalid category selected.");
+  }
+
+  const fullPath = path.join(__dirname, "uploads", fileName);
+  const pdfPath = `/uploads/${fileName}`;
+
+  if (fs.existsSync(fullPath)) {
+    return res.render("revision-pdf", {
+      name,
+      gender,
+      category,
+      week: null,
+      pair,
+      pdfPath
+    });
+  } else {
+    return res.status(404).send(`${category} PDF not found.`);
   }
 });
 
 // Week selection handler
 app.post("/week-selection", (req, res) => {
   const { name, gender, category, week, pair } = req.body;
-  const pdfPath = `/uploads/Week ${week}.pdf`; // Updated for correct URL path
+  const fileName = `Week ${week}.pdf`;
+  const fullPath = path.join(__dirname, "uploads", fileName);
+  const pdfPath = `/uploads/${fileName}`;
 
-  if (fs.existsSync(path.join(__dirname, "uploads", `Week ${week}.pdf`))) {
+  if (fs.existsSync(fullPath)) {
     res.render("revision-pdf", { name, gender, category, week, pair, pdfPath });
   } else {
     res.status(404).send("PDF not found for the selected week.");
@@ -111,14 +129,15 @@ app.post("/upload-pdf", upload.single("pdf"), (req, res) => {
     subject: `New PDF Uploaded: ${file.originalname}`,
     text: `A new PDF file has been uploaded: ${file.originalname}.`
   })
-  .then(() => res.send("PDF uploaded successfully!"))
-  .catch(err => {
-    console.error("❌ Error sending email:", err);
-    res.status(500).send("Error sending email after upload.");
-  });
+    .then(() => res.send("PDF uploaded successfully!"))
+    .catch(err => {
+      console.error("❌ Error sending email:", err);
+      res.status(500).send("Error sending email after upload.");
+    });
 });
 
 // Start server
-app.listen(process.env.PORT || 5000, () => {
-  console.log("Server running on port", process.env.PORT || 5000);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });
